@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Raise Request{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white rounded-lg shadow p-6">
+    <h1 class="text-2xl font-bold mb-4">Raise Request</h1>
+    
+    <form method="POST" enctype="multipart/form-data" class="space-y-4">
+        <div>
+            <label class="block mb-1">Request Type</label>
+            <select name="request_type" required class="w-full p-2 border rounded">
+                <option value="">Select type</option>
+                <option value="paper_status">Paper Status Update</option>
+                <option value="document_submission">Document Submission</option>
+                <option value="team_change">Team Change Request</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block mb-1">Details</label>
+            <textarea name="details" rows="4" required class="w-full p-2 border rounded"></textarea>
+        </div>
+
+        <div>
+            <label class="block mb-1">Attachment (Optional)</label>
+            <input type="file" name="file" class="w-full p-2 border rounded">
+        </div>
+
+        <div class="flex justify-end">
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">
+                Submit Request
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
