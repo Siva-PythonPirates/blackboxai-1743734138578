@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Provide Feedback{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white rounded-lg shadow p-6">
+    <h1 class="text-2xl font-bold mb-4">Provide Feedback</h1>
+    
+    <form method="POST" class="space-y-4">
+        <div>
+            <label class="block mb-1">Technical Quality</label>
+            <select name="technical_quality" required class="w-full p-2 border rounded">
+                <option value="">Select rating</option>
+                <option value="5">Excellent</option>
+                <option value="4">Good</option>
+                <option value="3">Average</option>
+                <option value="2">Needs Improvement</option>
+                <option value="1">Poor</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block mb-1">Presentation Skills</label>
+            <select name="presentation_skills" required class="w-full p-2 border rounded">
+                <option value="">Select rating</option>
+                <option value="5">Excellent</option>
+                <option value="4">Good</option>
+                <option value="3">Average</option>
+                <option value="2">Needs Improvement</option>
+                <option value="1">Poor</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block mb-1">Comments</label>
+            <textarea name="comments" rows="4" required class="w-full p-2 border rounded"></textarea>
+        </div>
+
+        <div class="flex justify-end">
+            <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">
+                Submit Feedback
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
