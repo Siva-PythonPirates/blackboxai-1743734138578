@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Schedule Reviews{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="p-8">
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">Schedule Project Reviews</h1>
+            <p class="text-gray-600">Set dates for project milestones and evaluations</p>
+        </div>
+
+        <form method="POST" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="review_type" class="block text-sm font-medium text-gray-700">Review Type</label>
+                    <select id="review_type" name="review_type" required
+                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option value="">Select review type</option>
+                        <option value="first">First Review</option>
+                        <option value="second">Second Review</option>
+                        <option value="third">Third Review</option>
+                        <option value="final">Final Review</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="review_date" class="block text-sm font-medium text-gray-700">Review Date</label>
+                    <input type="date" id="review_date" name="review_date" required
+                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-3">
+                <a href="{{ url_for('admin_dashboard') }}" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                    Cancel
+                </a>
+                <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+                    Schedule Review
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-8">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Upcoming Reviews</h3>
+            {% if reviews %}
+            <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg">
+                <table class="min-w-full divide-y divide-gray-300">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">Review</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 bg-white">
+                        {% for review in reviews %}
+                        <tr>
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+                                {{ review.type|title }} Review
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                {{ review.date.strftime('%B %d, %Y') }}
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                    {% if review.status == 'scheduled' %}bg-green-100 text-green-800
+                                    {% elif review.status == 'completed' %}bg-blue-100 text-blue-800
+                                    {% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                                    {{ review.status|title }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-8 bg-gray-50 rounded-lg">
+                <i class="fas fa-calendar-times text-3xl text-gray-300 mb-2"></i>
+                <p class="text-gray-600">No reviews scheduled yet</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
